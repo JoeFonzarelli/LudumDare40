@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class FatBat : MonoBehaviour {
 
 	public float maxFat;
-	private float fat;
+	private float fat = 0.0f;
 	public GameObject Player;
 	private PlayerMovement playerInfo;
 	private float scale;

@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        jumpDecayRate = maxJumpForce / 8.0f;
+        jumpDecayRate = maxJumpForce / 6.0f;
         jumpForce = maxJumpForce;
 
         AirSpeed = Standardspeed / 3.0f;
@@ -33,6 +33,9 @@ public class PlayerMovement : MonoBehaviour {
         Move();
         Jump();
         Hit();
+
+        GetComponent<Rigidbody>().velocity = new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
+
 	}
 
     private void Move()

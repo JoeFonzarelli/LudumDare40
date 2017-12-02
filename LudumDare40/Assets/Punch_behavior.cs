@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Punch_behavior : MonoBehaviour {
 
+
 	// Use this for initialization
 	void Start () {
 		
@@ -17,7 +18,12 @@ public class Punch_behavior : MonoBehaviour {
     void OnTriggerEnter(Collider col)
     {
 		if (col.gameObject.tag == "Enemy") {
-			Destroy(col.gameObject);
+            --col.gameObject.GetComponent<Enemy>().life;
+            if (col.gameObject.GetComponent<Enemy>().life <= 0)
+            {
+                transform.parent.gameObject.GetComponent<PlayerMovement>().fat += col.gameObject.GetComponent<Enemy>().fatGiven;
+                Destroy(col.gameObject);
+            }
 		}
     }
 }

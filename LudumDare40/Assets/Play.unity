@@ -199,6 +199,8 @@ MonoBehaviour:
   player: {fileID: 0}
   speed: 2
   distanceToAttack: 1
+  life: 3
+  fatGiven: 0.15
 --- !u!54 &484765036
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -477,6 +479,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Standardspeed: 5
   maxJumpForce: 100
+  lives: 3
+  fat: 0
+  score: 0
 --- !u!135 &892140106
 SphereCollider:
   m_ObjectHideFlags: 0

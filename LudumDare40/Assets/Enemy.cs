@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour {
 	private float distanceToPlayer;
 	public float distanceToAttack;
 	private Vector3 direction;
+    
+    public int life = 3;
+    public float fatGiven = 0.15f;
 
 	void calcDirection(){
 		direction = Vector3.right * Time.deltaTime * speed * Mathf.Sign(playerPosition.x - transform.position.x);

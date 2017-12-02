@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+    //run variables
     public float Standardspeed = 10;
     float AirSpeed;
     float translation;
 
+    //jump variables
     public float maxJumpForce = 80;
     float jumpDecayRate;
     float jumpForce;
     bool isGrounded = false, isJumping = false;
+
+    //stats variables
+    public int lives = 3;
+    public float fat = 0;
+    public int score = 0;
+
 	// Use this for initialization
 	void Start () {
         jumpDecayRate = maxJumpForce / 8.0f;
@@ -86,6 +94,19 @@ public class PlayerMovement : MonoBehaviour {
         if (other.gameObject.tag == "Ground")
         {
             isGrounded = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.gameObject.tag == "Enemy")
+        {
+            --lives;
+            Debug.Log(lives);
+            if (lives <= 0)
+            {
+                Debug.Log("gameOver");
+            }
         }
     }
 }

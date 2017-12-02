@@ -32,11 +32,15 @@ public class Punch_behavior : MonoBehaviour {
             --col.gameObject.GetComponent<wall_script>().life;
             if (col.gameObject.GetComponent<wall_script>().life <= 0)
             {
-                for (int i=0; i<4; i++)
+                Debug.Log(col.transform.childCount);
+                for (int i=3; i>=0; i--)
                 {
                     col.gameObject.GetComponent<Transform>().GetChild(i).GetComponent<Rigidbody>().AddForce(Vector3.right * Random.Range(-3, 3) + Vector3.up * Random.Range(0, 4));
                     col.gameObject.GetComponent<Transform>().GetChild(i).GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), Random.Range(-3, 3));
                     col.gameObject.GetComponent<Transform>().GetChild(i).GetComponent<BoxCollider>().enabled = false;
+                    col.gameObject.GetComponent<Transform>().GetChild(i).parent = null;
+
+
                 }
                 Destroy(col.gameObject);
             }

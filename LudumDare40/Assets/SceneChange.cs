@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour {
 
@@ -18,10 +19,16 @@ public class SceneChange : MonoBehaviour {
 
 	public void GoToPlay(){
 		Debug.Log ("play");
+		SceneManager.LoadScene ("Credits", LoadSceneMode.Single);
 	}
 
 	public void GoToCredits(){
 		Debug.Log ("credits");
+		SceneManager.LoadScene ("Credits", LoadSceneMode.Single);
+	}
+
+	public void GoToMenu(){
+		SceneManager.LoadScene ("Menu", LoadSceneMode.Single);
 	}
 
 	public void Exit(){

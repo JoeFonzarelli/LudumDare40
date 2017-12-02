@@ -38,9 +38,8 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Hit()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && isGrounded)
         {
-            Debug.Log("asd");
             StartCoroutine(punch());
         }
     }
@@ -55,7 +54,6 @@ public class PlayerMovement : MonoBehaviour {
     private void Jump()
     {
         if (Input.GetButtonDown("Jump") && isGrounded) { //start
-            //GetComponent<Rigidbody>().AddForce(translation * Vector3.right * 1000); //inertia
             isJumping = true;
         }
         if (Input.GetButtonUp("Jump")) //reset

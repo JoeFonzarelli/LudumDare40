@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour {
     IEnumerator punch()
     {
         transform.GetChild(0).gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         transform.GetChild(0).gameObject.SetActive(false);
     }
 

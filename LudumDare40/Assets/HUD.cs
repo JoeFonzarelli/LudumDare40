@@ -4,17 +4,29 @@ using UnityEngine;
 
 public class HUD : MonoBehaviour {
 
-	public float maxFat;
-	private float actualFat = 0.0f;
-	public Sprite life;
+
 	private int lives;
+	private int score;
+	public GameObject Player;
+
 	// Use this for initialization
 	void Start () {
-		
+
 	}
-	
-	// Update is called once per frame
-	void OnGUI () {
-	
+
+	void Update(){
+
+		lives = Player.GetComponent<PlayerMovement>().lives;
+		switch (lives) {
+		case 1:
+			GameObject.Find ("life2").SetActive(false);
+			break;
+		case 2:
+			GameObject.Find ("life3").SetActive(false);
+			break;
+		default:
+			break;
+		}
+
 	}
 }

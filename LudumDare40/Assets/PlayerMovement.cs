@@ -65,6 +65,8 @@ public class PlayerMovement : MonoBehaviour {
 			GameObject.Find ("ParticleSystem").transform.GetChild (4).gameObject.transform.position = transform.position;
 			GameObject.Find ("ParticleSystem").transform.GetChild (4).gameObject.GetComponent<ParticleSystem> ().Play ();
 		}
+		GetComponent<Animator> ().SetBool ("IsGrounded", isGrounded);
+
 	
 	}
 
@@ -76,18 +78,19 @@ public class PlayerMovement : MonoBehaviour {
         translation *= Time.deltaTime;
 		if (translation != 0.0f && isGrounded) {
 			walk.mute = false;
+			GetComponent<Animator> ().SetBool ("IsMoving", true);
 
 		} else {
 			walk.mute = true;
 			GameObject.Find ("ParticleSystem").transform.GetChild (5).gameObject.SetActive (true);
-
+			GetComponent<Animator> ().SetBool ("IsMoving", false);
 			GameObject.Find ("ParticleSystem").transform.GetChild (5).gameObject.GetComponent<ParticleSystem> ().Play ();
 		}
 		float direction = Mathf.Sign(translation);
 
 
-		transform.Translate(new Vector3(1,0,0) * translation);
-		transform.localScale = new Vector3 (direction, 1, 1);
+		transform.Translate(new Vector3(0,0,1) * translation);
+		transform.localScale = new Vector3 (1, 1, direction);
 		if (direction == -1) {
 			GameObject.Find ("ParticleSystem").transform.GetChild (5).gameObject.transform.rotation = Quaternion.Euler(new Vector3(-19.764f, 100.256f, -177.8156f));
 		}else GameObject.Find ("ParticleSystem").transform.GetChild (5).gameObject.transform.rotation = Quaternion.Euler(new Vector3(-162.764f, 100.256f, -182.8156f));
@@ -97,6 +100,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (Input.GetButtonDown("Fire1") && isGrounded)
         {
+			GetComponent<Animator> ().SetBool ("IsAttacking", true);
             StartCoroutine(punch());
         }
     }
@@ -109,6 +113,7 @@ public class PlayerMovement : MonoBehaviour {
 		transform.GetChild (0).gameObject.GetComponent<Punch_behavior> ().punch.Play ();
         yield return new WaitForSeconds(0.1f);
         transform.GetChild(0).gameObject.SetActive(false);
+		GetComponent<Animator> ().SetBool ("IsAttacking", false);
     }
 
     private void Jump()

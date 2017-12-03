@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     public float Standardspeed = 10;
     float AirSpeed;
     float translation;
+	float direction = 1;
 
     //jump variables
     public float maxJumpForce = 80;
@@ -86,7 +87,8 @@ public class PlayerMovement : MonoBehaviour {
 			GetComponent<Animator> ().SetBool ("IsMoving", false);
 			GameObject.Find ("ParticleSystem").transform.GetChild (5).gameObject.GetComponent<ParticleSystem> ().Play ();
 		}
-		float direction = Mathf.Sign(translation);
+
+		if(translation != 0) direction = Mathf.Sign(translation);
 
 
 		transform.Translate(new Vector3(0,0,1) * translation);

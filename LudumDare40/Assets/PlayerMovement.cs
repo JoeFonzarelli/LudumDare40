@@ -44,7 +44,11 @@ public class PlayerMovement : MonoBehaviour {
         translation *= (isGrounded)?Standardspeed:AirSpeed;
         translation *= Time.deltaTime;
 
-        transform.Translate(Vector3.right * translation);
+		float direction = Mathf.Sign(translation);
+
+
+		transform.Translate(Vector3.right * translation);
+		transform.localScale = new Vector3 (direction, 1, 1);
     }
 
     private void Hit()

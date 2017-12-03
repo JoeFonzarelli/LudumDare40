@@ -6,6 +6,7 @@ public class wall_script : MonoBehaviour {
 
     public int life;
     public int FatNeeded;
+
 	// Use this for initialization
 	void Start () {
 		

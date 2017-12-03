@@ -21,19 +21,18 @@ public class DoorBar : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-
+		if(door != null){
 		camPosition = cam.WorldToScreenPoint(door.transform.position);
 		transform.position = camPosition;
 		barBackground.transform.position = camPosition;
 
 		scale =  door.GetComponent<wall_script> ().life/ maxLive;
 		transform.localScale = new Vector3 (1, scale, 1);
-		Debug.Log (scale);
-
-		if (scale <= 0) {
-			Destroy (gameObject);
-			Destroy (barBackground);
 		}
 
+	}
+
+	void OnDestroy(){
+		transform.localScale = new Vector3 (1, 0, 1);
 	}
 }

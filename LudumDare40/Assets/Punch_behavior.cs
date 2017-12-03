@@ -19,6 +19,8 @@ public class Punch_behavior : MonoBehaviour {
     {
 		if (col.gameObject.tag == "Enemy") {
             --col.gameObject.GetComponent<Enemy>().life;
+			Debug.Log ("Hola");
+			GameObject.Find ("Main Camera").GetComponent<CameraShake> ().isShaking = true;
             if (col.gameObject.GetComponent<Enemy>().life <= 0)
             {
                 transform.parent.gameObject.GetComponent<PlayerMovement>().fat += col.gameObject.GetComponent<Enemy>().fatGiven;
@@ -39,6 +41,9 @@ public class Punch_behavior : MonoBehaviour {
                     col.gameObject.GetComponent<Transform>().GetChild(i).GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), Random.Range(-3, 3));
                     col.gameObject.GetComponent<Transform>().GetChild(i).GetComponent<BoxCollider>().enabled = false;
                     col.gameObject.GetComponent<Transform>().GetChild(i).parent = null;
+
+					Destroy (GameObject.Find ("DoorBar"));
+					Destroy (GameObject.Find ("DoorBarBackground"));
 
 
                 }

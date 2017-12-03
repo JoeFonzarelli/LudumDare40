@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour {
     public float fat = 0;
     public int score = 0;
 
+	int state = 0, prevState =0;
+
 	public AudioClip[] audio;
 	AudioSource sound;
 	AudioSource walk;
@@ -38,29 +40,57 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
         Move();
         Jump();
         Hit();
 
         GetComponent<Rigidbody>().velocity = new Vector3(0, GetComponent<Rigidbody>().velocity.y, 0);
+		if (fat >= 0 && fat < 25) {
+			state = 0;
+		}
+		if (fat >= 25 && fat < 50) {
+			state = 1;
+		}
+		if (fat >= 50 && fat < 75) {
+			state = 2;
+		}
+		if (fat >= 75 && fat < 100) {
+			state = 3;	
+		}
 
+		if (prevState != state){
+			prevState = state;
+			GameObject.Find ("ParticleSystem").transform.GetChild (4).gameObject.SetActive(true);
+			GameObject.Find ("ParticleSystem").transform.GetChild (4).gameObject.transform.position = transform.position;
+			GameObject.Find ("ParticleSystem").transform.GetChild (4).gameObject.GetComponent<ParticleSystem> ().Play ();
+		}
+	
 	}
 
     private void Move()
     {
-		
+		GameObject.Find ("ParticleSystem").transform.GetChild (5).gameObject.transform.position = GetComponent<SphereCollider> ().center+ transform.position;
         translation = Input.GetAxis("Horizontal");
         translation *= (isGrounded)?Standardspeed:AirSpeed;
         translation *= Time.deltaTime;
 		if (translation != 0.0f && isGrounded) {
 			walk.mute = false;
+
+		} else {
+			walk.mute = true;
+			GameObject.Find ("ParticleSystem").transform.GetChild (5).gameObject.SetActive (true);
+
+			GameObject.Find ("ParticleSystem").transform.GetChild (5).gameObject.GetComponent<ParticleSystem> ().Play ();
 		}
-		else walk.mute = true;
 		float direction = Mathf.Sign(translation);
 
 
-		transform.Translate(Vector3.right * translation);
+		transform.Translate(new Vector3(1,0,0) * translation);
 		transform.localScale = new Vector3 (direction, 1, 1);
+		if (direction == -1) {
+			GameObject.Find ("ParticleSystem").transform.GetChild (5).gameObject.transform.rotation = Quaternion.Euler(new Vector3(-19.764f, 100.256f, -177.8156f));
+		}else GameObject.Find ("ParticleSystem").transform.GetChild (5).gameObject.transform.rotation = Quaternion.Euler(new Vector3(-162.764f, 100.256f, -182.8156f));
     }
 
     private void Hit()
@@ -85,11 +115,13 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (Input.GetButtonDown("Jump") && isGrounded) { //start
             isJumping = true;
+
         }
         if (Input.GetButtonUp("Jump")) //reset
         {
             jumpForce = maxJumpForce;
             isJumping = false;
+
         }
 
         if (Input.GetButton("Jump") && isJumping) // do
@@ -109,6 +141,9 @@ public class PlayerMovement : MonoBehaviour {
         {
             isGrounded = true;
 			sound.PlayOneShot (audio [1]);
+			GameObject.Find ("ParticleSystem").transform.GetChild (0).gameObject.SetActive(true);
+			GameObject.Find ("ParticleSystem").transform.GetChild (0).gameObject.transform.position = GetComponent<SphereCollider> ().center+transform.position;
+			GameObject.Find ("ParticleSystem").transform.GetChild (0).gameObject.GetComponent<ParticleSystem> ().Play ();
         }
     }
 
@@ -124,12 +159,16 @@ public class PlayerMovement : MonoBehaviour {
     {
         if(collision.collider.gameObject.tag == "Enemy")
         {
-			sound.PlayOneShot (audio [4]);
+			sound.PlayOneShot (audio [2]);
             --lives;
+			GameObject.Find ("ParticleSystem").transform.GetChild (2).gameObject.SetActive(true);
+			GameObject.Find ("ParticleSystem").transform.GetChild (2).gameObject.transform.position = transform.position;
+			GameObject.Find ("ParticleSystem").transform.GetChild (2).gameObject.GetComponent<ParticleSystem> ().Play ();
             Debug.Log(lives);
             if (lives <= 0)
             {
-				sound.PlayOneShot (audio [5]);
+				
+				sound.PlayOneShot (audio [3]);
             }
         }
     }

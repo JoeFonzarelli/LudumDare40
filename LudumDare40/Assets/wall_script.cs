@@ -5,7 +5,7 @@ using UnityEngine;
 public class wall_script : MonoBehaviour {
 
     public float life;
-    public int FatNeeded;
+    public float FatNeeded;
 
 	// Use this for initialization
 	void Start () {

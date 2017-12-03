@@ -27,20 +27,30 @@ public class Punch_behavior : MonoBehaviour {
 		if (col.gameObject.tag == "Enemy") {
 			punch.PlayOneShot (clips [3]);
             --col.gameObject.GetComponent<Enemy>().life;
+			GameObject.Find ("ParticleSystem").transform.GetChild (4).gameObject.SetActive(true);
+			GameObject.Find ("ParticleSystem").transform.GetChild (4).gameObject.transform.position = GetComponent<BoxCollider> ().center+transform.position;
+			GameObject.Find ("ParticleSystem").transform.GetChild (4).gameObject.GetComponent<ParticleSystem> ().Play ();
 			Debug.Log ("Hola");
 			GameObject.Find ("Main Camera").GetComponent<CameraShake> ().isShaking = true;
             if (col.gameObject.GetComponent<Enemy>().life <= 0)
             {
+				GameObject.Find ("ParticleSystem").transform.GetChild (2).gameObject.SetActive(true);
+				GameObject.Find ("ParticleSystem").transform.GetChild (2).gameObject.transform.position = GetComponent<BoxCollider> ().center+transform.position;
+				GameObject.Find ("ParticleSystem").transform.GetChild (2).gameObject.GetComponent<ParticleSystem> ().Play ();
 				punch.PlayOneShot (clips [2]);
                 transform.parent.gameObject.GetComponent<PlayerMovement>().fat += col.gameObject.GetComponent<Enemy>().fatGiven;
-                //if (transform.parent.gameObject.GetComponent<PlayerMovement>().fat > 1) transform.parent.gameObject.GetComponent<PlayerMovement>().fat = 1;
                 Destroy(col.gameObject);
             }
 		}
 
         if (col.gameObject.tag == "wall")
         {
+
+			GameObject.Find ("ParticleSystem").transform.GetChild (1).gameObject.SetActive(true);
+			GameObject.Find ("ParticleSystem").transform.GetChild (1).gameObject.transform.position = GetComponent<BoxCollider> ().center+transform.position;
+			GameObject.Find ("ParticleSystem").transform.GetChild (1).gameObject.GetComponent<ParticleSystem> ().Play ();
 			punch.PlayOneShot (clips [0]);
+			if(col.gameObject.GetComponent<wall_script>().FatNeeded <= GetComponentInParent<PlayerMovement>().fat )
             --col.gameObject.GetComponent<wall_script>().life;
             if (col.gameObject.GetComponent<wall_script>().life <= 0)
             {

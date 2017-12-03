@@ -7,19 +7,22 @@ using UnityEngine.UI;
 public class FatBat : MonoBehaviour {
 
 	public float maxFat;
-	private float fat = 0.0f;
+	public float fat = 0.0f;
 	public GameObject Player;
 	private PlayerMovement playerInfo;
 	private float scale;
+
 	// Use this for initialization
 	void Start () {
 		playerInfo = Player.GetComponent<PlayerMovement> ();
 		fat = playerInfo.fat;
+
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		fat = playerInfo.fat;
 	}
 
 	void OnGUI(){

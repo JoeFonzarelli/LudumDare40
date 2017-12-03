@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerMovement : MonoBehaviour {
 
     //run variables
@@ -20,12 +21,19 @@ public class PlayerMovement : MonoBehaviour {
     public float fat = 0;
     public int score = 0;
 
+	public AudioClip[] audio;
+	AudioSource sound;
+	AudioSource walk;
 	// Use this for initialization
 	void Start () {
         jumpDecayRate = maxJumpForce / 6.0f;
         jumpForce = maxJumpForce;
 
-        AirSpeed = Standardspeed / 3.0f;
+        AirSpeed = Standardspeed / 1.5f;
+		sound = GetComponent<AudioSource> ();
+		walk = transform.GetChild (1).GetComponent<AudioSource> ();
+		walk.Play ();
+		walk.mute = true;
 	}
 	
 	// Update is called once per frame
@@ -40,10 +48,14 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Move()
     {
+		
         translation = Input.GetAxis("Horizontal");
         translation *= (isGrounded)?Standardspeed:AirSpeed;
         translation *= Time.deltaTime;
-
+		if (translation != 0.0f && isGrounded) {
+			walk.mute = false;
+		}
+		else walk.mute = true;
 		float direction = Mathf.Sign(translation);
 
 
@@ -60,8 +72,11 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     IEnumerator punch()
-    {
+	{ 	
+		
         transform.GetChild(0).gameObject.SetActive(true);
+		transform.GetChild (0).gameObject.GetComponent<Punch_behavior> ().punch = transform.GetChild (0).gameObject.GetComponent<AudioSource> ();
+		transform.GetChild (0).gameObject.GetComponent<Punch_behavior> ().punch.Play ();
         yield return new WaitForSeconds(0.1f);
         transform.GetChild(0).gameObject.SetActive(false);
     }
@@ -93,6 +108,7 @@ public class PlayerMovement : MonoBehaviour {
         if(other.gameObject.tag == "Ground")
         {
             isGrounded = true;
+			sound.PlayOneShot (audio [1]);
         }
     }
 
@@ -108,12 +124,19 @@ public class PlayerMovement : MonoBehaviour {
     {
         if(collision.collider.gameObject.tag == "Enemy")
         {
+			sound.PlayOneShot (audio [4]);
             --lives;
             Debug.Log(lives);
             if (lives <= 0)
             {
-                Debug.Log("gameOver");
+				sound.PlayOneShot (audio [5]);
             }
         }
     }
+
+	private void OnTriggerStay(Collider coll){
+		if (coll.gameObject.tag == "Ground") {
+			isGrounded = true;
+		}
+	}
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class DoorBar : MonoBehaviour {
 
 	public GameObject door;
+	public GameObject nextDoor;
 	public GameObject camera;
 	private Camera cam;
 	Vector3 camPosition;

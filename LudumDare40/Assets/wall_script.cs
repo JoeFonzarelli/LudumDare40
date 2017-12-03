@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class wall_script : MonoBehaviour {
 
-    public int life;
+    public float life;
     public int FatNeeded;
 
 	// Use this for initialization
 	void Start () {
-		
+		InvokeRepeating ("increaseLife", 0, 1);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void increaseLife(){
+		if (life < 2) {
+			life += 0.2f;
+		}
 	}
 }

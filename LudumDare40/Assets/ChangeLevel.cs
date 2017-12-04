@@ -19,6 +19,9 @@ public class ChangeLevel : MonoBehaviour {
 		} else {
 			nextPos = Camera.main.transform.position;
 			changePos = false;
+
+
+			GameObject.Find ("Main Camera").GetComponent<CameraShake> ().ChangePos ();
 		}
 	}
 
@@ -26,6 +29,8 @@ public class ChangeLevel : MonoBehaviour {
 		
 		if (col.gameObject.tag == "Player") {
 			changePos = true;
+
+
 			nextPos = new Vector3 (nextFloor.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
 			GameObject.Find ("DoorBar").transform.position = Camera.main.WorldToScreenPoint (nextWall.transform.position)/2.0f;
 			GameObject.Find ("DoorBar").transform.position = new Vector3(GameObject.Find ("DoorBar").transform.position.x,GameObject.Find ("DoorBar").transform.position.y + 50, GameObject.Find ("DoorBar").transform.position.z);

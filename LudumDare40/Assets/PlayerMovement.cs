@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     public float Standardspeed = 10;
     float AirSpeed;
     float translation;
-	float direction = 1;
+	public float direction = 1;
 
     //jump variables
     public float maxJumpForce = 80;
@@ -172,6 +172,8 @@ public class PlayerMovement : MonoBehaviour {
 			GameObject.Find ("ParticleSystem").transform.GetChild (2).gameObject.transform.position = transform.position;
 			GameObject.Find ("ParticleSystem").transform.GetChild (2).gameObject.GetComponent<ParticleSystem> ().Play ();
             Debug.Log(lives);
+			collision.gameObject.GetComponent<Animator> ().SetBool ("IsMoving", false);
+			collision.gameObject.GetComponent<Animator> ().SetBool ("IsAttacking", true);
             if (lives <= 0)
             {
 				

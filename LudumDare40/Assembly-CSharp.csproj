@@ -63,6 +63,7 @@
      <Compile Include="Assets\SceneChange.cs" />
      <Compile Include="Assets\scr.cs" />
      <Compile Include="Assets\wall_script.cs" />
+     <None Include="Assets\shader\Cartoon.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

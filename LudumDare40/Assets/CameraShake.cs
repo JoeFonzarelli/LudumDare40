@@ -37,6 +37,10 @@ public class CameraShake : MonoBehaviour
 
 	}
 
+	public void ChangePos(){
+		originalPos = camTransform.localPosition;
+	}
+
 	void Update()
 	{
 		if (isShaking) {

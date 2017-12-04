@@ -5,13 +5,14 @@ using UnityEngine;
 public class movingPlatform : MonoBehaviour {
 
     public GameObject[] target;
-    float speed, step, threshold;
-
+	float step;
+	public float threshold = 2;
+	public float speed = 2;
     int flipflop = 0;
 	// Use this for initialization
 	void Start () {
-        speed = 2;
-        threshold = 2;
+        
+        
         
     }
 	
@@ -24,15 +25,20 @@ public class movingPlatform : MonoBehaviour {
         {
             flipflop = (flipflop == 0) ? 1 : 0;
         }
+		if(gameObject.tag == "Enemy")
+        {
+			gameObject.GetComponent<Animator> ().SetBool ("IsMoving", true);
+        }
+		
 	}
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" || other.tag == "Enemy") other.transform.parent = transform;
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.parent == transform) other.transform.parent = null;
+        
     }
 }

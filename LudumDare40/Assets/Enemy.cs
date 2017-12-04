@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour {
     public float fatGiven = 0.15f;
 
 	void calcDirection(){
-		direction = Vector3.right * Time.deltaTime * speed * Mathf.Sign(playerPosition.x - transform.position.x);
+		//direction = Vector3.right * Time.deltaTime * speed * Mathf.Sign(playerPosition.x - transform.position.x);
 	}
 
 	// Use this for initialization
@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		/*
         player = GameObject.Find("Player");
 		playerPosition = player.transform.position;
 		//gameObject.transform.LookAt (player.transform, Vector3.right);
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour {
 			transform.position += direction;
 		}
 
-
+		*/
 
 	}
 }

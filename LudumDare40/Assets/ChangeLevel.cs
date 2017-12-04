@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChangeLevel : MonoBehaviour {
 
 	public GameObject nextFloor, nextWall;
 	private Vector3 nextPos;
 	bool changePos = false;
+	public GameObject gameover;
 	// Use this for initialization
 	void Start () {
 		nextPos = Camera.main.transform.position;
@@ -14,6 +16,11 @@ public class ChangeLevel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (gameover.activeInHierarchy == true) {
+			if (Input.GetButtonDown ("Jump")) {
+				SceneManager.LoadScene ("Menu");
+			}
+		}
 		if (changePos && (nextPos - Camera.main.transform.position).magnitude > 0.5f) {
 			Camera.main.transform.position = Vector3.Lerp (Camera.main.transform.position, nextPos, 1 * Time.deltaTime);
 		} else {

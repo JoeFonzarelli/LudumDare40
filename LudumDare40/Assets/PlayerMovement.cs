@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour {
     public float fat = 0;
     public int score = 0;
 
+	public GameObject GameOver;
+
 	int state = 0, prevState =0;
 
 	public AudioClip[] audio;
@@ -176,7 +178,9 @@ public class PlayerMovement : MonoBehaviour {
 			collision.gameObject.GetComponent<Animator> ().SetBool ("IsAttacking", true);
             if (lives <= 0)
             {
-				
+				GameObject.Find ("HUD").SetActive (false);
+				GameOver.SetActive (true);
+				Time.timeScale = 0.0f;
 				sound.PlayOneShot (audio [3]);
             }
         }

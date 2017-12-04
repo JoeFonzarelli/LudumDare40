@@ -29,7 +29,9 @@ public class SceneChange : MonoBehaviour {
 	}
 
 	public void GoToMenu(){
+		Time.timeScale = 1;
 		SceneManager.LoadScene ("Menu", LoadSceneMode.Single);
+
 	}
 
 
